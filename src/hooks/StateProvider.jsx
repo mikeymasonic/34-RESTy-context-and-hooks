@@ -21,6 +21,11 @@ export function reducer(state, action) {
       return { ...state, method: action.payload };
     case 'SET_BODY':
       return { ...state, body: action.payload };
+    case 'SET_REQUESTS':
+      return { ...state, requests: [...state.requests, action.payload] };
+    case 'SET_DISABLE':
+      return { ...state, disable: action.payload };
+    
     default:
       return state;
   }
@@ -66,7 +71,7 @@ export const useDispatch = () => {
 };
 
 export const useDisable = () => {
-  const { disable } = useContext(StateContext);
+  const { disable } = useGlobalState();
   return disable;
 };
 
@@ -81,7 +86,7 @@ export const useHeaders = () => {
 };
 
 export const useRequests = () => {
-  const { response } = useContext(StateContext);
-  return response;
+  const { requests } = useGlobalState();
+  return requests;
 };
 

@@ -31,9 +31,11 @@ const FormControl = () => {
     if(storedReqs) requests(storedReqs);
 
     if(method === 'GET' || method === 'DELETE') {
-      disable(true);
+      dispatch({ type: 'SET_DISABLE', payload:true });
+      // disable(true);
     } else if(method === 'POST' || method === 'PUT' || method === 'PATCH') {
-      disable(false);
+      dispatch({ type: 'SET_DISABLE', payload:false });
+      // disable(false);
     }
   }, [method]);
 
@@ -62,7 +64,8 @@ const FormControl = () => {
 
     if(method === 'GET' || method === 'DELETE') {
       // setBody('');
-      body('');
+      dispatch({ type: 'SET_BODY', payload:'' });
+      // body('');
       requestObject = { 
         method: method 
       };
@@ -95,8 +98,10 @@ const FormControl = () => {
           headers(response.headers);  
           throw Error ('Bad Request');
         } else {
-          setResponse(response.response);
-          setHeaders(response.headers);    
+          // setResponse(response.response);
+          // setHeaders(response.headers);  
+          response(response.response);
+          headers(response.headers);    
           handleSave(saveObject);
         }
       });
@@ -110,7 +115,8 @@ const FormControl = () => {
 
     if(!alreadyExists) {
       const newRequests = [...requests, saveObject];
-      setRequests(newRequests);
+      // setRequests(newRequests);
+      requests(newRequests);
       localStorage.setItem('requests', JSON.stringify(newRequests));
     }
     alreadyExists = false;
@@ -118,22 +124,26 @@ const FormControl = () => {
 
   const handleClear = () => {
     localStorage.clear();
-    setRequests([]);
+    // setRequests([]);
+    requests([]);
   };
 
   const handleLoad = (url, method, body) => {
-    setUrl(url);
-    setMethod(method);
-    setBody(body);
+    // setUrl(url);
+    // setMethod(method);
+    // setBody(body);
+    url(url);
+    method(method);
+    body(body);
   };
 
   return (
     <div className={styles.FormControl}>
       <div className={styles.left}>
-        <List requests={requests} handleClear={handleClear} handleLoad={handleLoad}/>
+        <List handleClear={handleClear} handleLoad={handleLoad}/>
       </div>
       <div className={styles.right}>
-        <Form url={url} method={method} body={body} disable={disable} onChange={handleChange} onSubmit={handleSubmit}/>
+        <Form url={url} method={method} body={body} onChange={handleChange} onSubmit={handleSubmit}/>
         <Display headers={headers} response={response} />
       </div>
     </div>

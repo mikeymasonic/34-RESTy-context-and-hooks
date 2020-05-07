@@ -25,6 +25,10 @@ export function reducer(state, action) {
       return { ...state, requests: [...state.requests, action.payload] };
     case 'SET_DISABLE':
       return { ...state, disable: action.payload };
+    case 'SET_RESPONSE':
+      return { ...state, response: action.payload };
+    case 'SET_HEADERS':
+      return { ...state, headers: action.payload };
     
     default:
       return state;

@@ -93,7 +93,8 @@ const FormControl = () => {
       .then(response => { 
         if(!response.headers && !response.response || (!response.ok)) {
           // setResponse(response.response);
-          // setHeaders(response.headers);  
+          // setHeaders(response.headers); 
+           
           response(response.response);
           headers(response.headers);  
           throw Error ('Bad Request');

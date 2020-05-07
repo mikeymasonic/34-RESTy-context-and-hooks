@@ -4,7 +4,7 @@ import Display from '../components/Display/Display';
 import List from '../components/List/List';
 import { fetchResponse } from '../services/api';
 import styles from './FormControl.css';
-import { useURL, useBody, useMethod, useDispatch, useDisable, useResponse } from '../hooks/StateProvider';
+import { useURL, useBody, useMethod, useDispatch, useDisable, useResponse, useHeaders, useRequests } from '../hooks/StateProvider';
 
 const FormControl = () => {
   const url = useURL();
@@ -13,6 +13,8 @@ const FormControl = () => {
   const dispatch = useDispatch();
   const disable = useDisable();
   const response = useResponse();
+  const headers = useHeaders();
+  const requests = useRequests();
 
   // const [url, setUrl] = useState('');
   // const [method, setMethod] = useState('GET');
@@ -24,16 +26,16 @@ const FormControl = () => {
   // const [response, setResponse] = useState({});
   // const [requests, setRequests] = useState([]);
 
-  // useEffect(() => {
-  //   const storedReqs = JSON.parse(localStorage.getItem('requests'));
-  //   if(storedReqs) setRequests(storedReqs);
+  useEffect(() => {
+    const storedReqs = JSON.parse(localStorage.getItem('requests'));
+    if(storedReqs) requests(storedReqs);
 
-  //   if(method === 'GET' || method === 'DELETE') {
-  //     setDisable(true);
-  //   } else if(method === 'POST' || method === 'PUT' || method === 'PATCH') {
-  //     setDisable(false);
-  //   }
-  // }, [method]);
+    if(method === 'GET' || method === 'DELETE') {
+      disable(true);
+    } else if(method === 'POST' || method === 'PUT' || method === 'PATCH') {
+      disable(false);
+    }
+  }, [method]);
 
   // const handleChange = ({ target }) => {
   //   if(target.name === 'url') setUrl(target.value);
@@ -59,7 +61,8 @@ const FormControl = () => {
     let saveObject;
 
     if(method === 'GET' || method === 'DELETE') {
-      setBody('');
+      // setBody('');
+      body('');
       requestObject = { 
         method: method 
       };
@@ -86,8 +89,10 @@ const FormControl = () => {
     fetchResponse(url, requestObject)
       .then(response => { 
         if(!response.headers && !response.response || (!response.ok)) {
-          setResponse(response.response);
-          setHeaders(response.headers);  
+          // setResponse(response.response);
+          // setHeaders(response.headers);  
+          response(response.response);
+          headers(response.headers);  
           throw Error ('Bad Request');
         } else {
           setResponse(response.response);

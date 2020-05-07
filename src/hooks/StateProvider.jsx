@@ -75,3 +75,13 @@ export const useResponse = () => {
   return response;
 };
 
+export const useHeaders = () => {
+  const { headers } = useContext(StateContext);
+  return headers;
+};
+
+export const useRequests = () => {
+  const { response } = useContext(StateContext);
+  return response;
+};
+

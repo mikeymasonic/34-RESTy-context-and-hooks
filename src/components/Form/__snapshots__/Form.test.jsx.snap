@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Form component renders Form 1`] = `
+<div
+  className="Form"
+>
+  <form
+    onSubmit={[Function]}
+  >
+    <label>
+      URL:
+      <input
+        name="url"
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </label>
+    <div>
+      <label>
+        <input
+          checked={false}
+          name="method"
+          onChange={[Function]}
+          type="radio"
+          value="GET"
+        />
+        GET
+      </label>
+      <label>
+        <input
+          checked={false}
+          name="method"
+          onChange={[Function]}
+          type="radio"
+          value="POST"
+        />
+        POST
+      </label>
+      <label>
+        <input
+          checked={false}
+          name="method"
+          onChange={[Function]}
+          type="radio"
+          value="PUT"
+        />
+        PUT
+      </label>
+      <label>
+        <input
+          checked={false}
+          name="method"
+          onChange={[Function]}
+          type="radio"
+          value="PATCH"
+        />
+        PATCH
+      </label>
+      <label>
+        <input
+          checked={false}
+          name="method"
+          onChange={[Function]}
+          type="radio"
+          value="DELETE"
+        />
+        DELETE
+      </label>
+    </div>
+    <textarea
+      disabled={true}
+      name="body"
+      onChange={[Function]}
+      placeholder="JSON Body"
+      value=""
+    />
+    <button
+      type="submit"
+    >
+      Submit
+    </button>
+  </form>
+</div>
+`;

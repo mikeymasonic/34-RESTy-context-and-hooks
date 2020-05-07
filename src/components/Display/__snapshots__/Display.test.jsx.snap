@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Display component renders Display 1`] = `
+<div
+  className="Display"
+>
+  <t
+    collapseStringsAfterLength={false}
+    collapsed={false}
+    defaultValue={null}
+    displayDataTypes={true}
+    displayObjectSize={true}
+    enableClipboard={true}
+    groupArraysAfterLength={100}
+    iconStyle="triangle"
+    indentWidth={4}
+    name="Headers"
+    onAdd={false}
+    onDelete={false}
+    onEdit={false}
+    onSelect={false}
+    shouldCollapse={false}
+    sortKeys={false}
+    src={Object {}}
+    style={Object {}}
+    theme="monokai"
+    validationMessage="Validation Error"
+  />
+  <t
+    collapseStringsAfterLength={false}
+    collapsed={false}
+    defaultValue={null}
+    displayDataTypes={true}
+    displayObjectSize={true}
+    enableClipboard={true}
+    groupArraysAfterLength={100}
+    iconStyle="triangle"
+    indentWidth={4}
+    name="Response"
+    onAdd={false}
+    onDelete={false}
+    onEdit={false}
+    onSelect={false}
+    shouldCollapse={false}
+    sortKeys={false}
+    src={Object {}}
+    style={Object {}}
+    theme="monokai"
+    validationMessage="Validation Error"
+  />
+</div>
+`;

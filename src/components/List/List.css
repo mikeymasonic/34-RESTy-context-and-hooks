@@ -1,0 +1,32 @@
+.List {
+  background-color: purple;
+  color: whitesmoke;
+  padding: 20px;
+  margin: 20px;
+
+  ul {
+    list-style-type: none;
+    padding-inline-start: 0;
+  }
+
+  li {
+    background-color: grey;
+    color: black;
+    margin: 10px;
+  }
+
+  li:hover {
+    background-color: purple;
+    color: whitesmoke;
+  }
+
+  h3 {
+    margin-block-start: 0;
+    margin-block-end: 0;
+  }
+
+  p {
+    margin-block-start: 0;
+    margin-block-end: 0;
+  }
+}

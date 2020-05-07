@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`List component renders List 1`] = `
+<div
+  className="List"
+>
+  <ul />
+  <button
+    onClick={[Function]}
+  >
+    Clear
+  </button>
+</div>
+`;

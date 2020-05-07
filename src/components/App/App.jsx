@@ -1,6 +1,14 @@
 import React from 'react';
+import FormControl from '../../containers/FormControl';
+import styles from './App.css';
+import Header from '../Header/Header';
 
 export default function App() {
-  return <h1>Hello World</h1>;
+  return (
+    <div className={styles.App}>
+      <Header />
+      <FormControl />
+    </div>
+  );
 }
   

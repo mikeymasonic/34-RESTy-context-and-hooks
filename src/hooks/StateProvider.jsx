@@ -64,3 +64,14 @@ export const useDispatch = () => {
   const { dispatch } = useContext(StateContext);
   return dispatch;
 };
+
+export const useDisable = () => {
+  const { disable } = useContext(StateContext);
+  return disable;
+};
+
+export const useResponse = () => {
+  const { response } = useContext(StateContext);
+  return response;
+};
+

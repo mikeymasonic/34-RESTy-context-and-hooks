@@ -4,33 +4,52 @@ import Display from '../components/Display/Display';
 import List from '../components/List/List';
 import { fetchResponse } from '../services/api';
 import styles from './FormControl.css';
+import { useURL, useBody, useMethod, useDispatch, useDisable, useResponse } from '../hooks/StateProvider';
 
 const FormControl = () => {
-  const [url, setUrl] = useState('');
-  const [method, setMethod] = useState('GET');
-  const [body, setBody] = useState('');
+  const url = useURL();
+  const body = useBody();
+  const method = useMethod();
+  const dispatch = useDispatch();
+  const disable = useDisable();
+  const response = useResponse();
 
-  const [disable, setDisable] = useState(true);
+  // const [url, setUrl] = useState('');
+  // const [method, setMethod] = useState('GET');
+  // const [body, setBody] = useState('');
 
-  const [headers, setHeaders] = useState({});
-  const [response, setResponse] = useState({});
-  const [requests, setRequests] = useState([]);
+  // const [disable, setDisable] = useState(true);
 
-  useEffect(() => {
-    const storedReqs = JSON.parse(localStorage.getItem('requests'));
-    if(storedReqs) setRequests(storedReqs);
+  // const [headers, setHeaders] = useState({});
+  // const [response, setResponse] = useState({});
+  // const [requests, setRequests] = useState([]);
 
-    if(method === 'GET' || method === 'DELETE') {
-      setDisable(true);
-    } else if(method === 'POST' || method === 'PUT' || method === 'PATCH') {
-      setDisable(false);
-    }
-  }, [method]);
+  // useEffect(() => {
+  //   const storedReqs = JSON.parse(localStorage.getItem('requests'));
+  //   if(storedReqs) setRequests(storedReqs);
+
+  //   if(method === 'GET' || method === 'DELETE') {
+  //     setDisable(true);
+  //   } else if(method === 'POST' || method === 'PUT' || method === 'PATCH') {
+  //     setDisable(false);
+  //   }
+  // }, [method]);
+
+  // const handleChange = ({ target }) => {
+  //   if(target.name === 'url') setUrl(target.value);
+  //   if(target.name === 'method') setMethod(target.value);
+  //   if(target.name === 'body') setBody(target.value);
+  // };
 
   const handleChange = ({ target }) => {
-    if(target.name === 'url') setUrl(target.value);
-    if(target.name === 'method') setMethod(target.value);
-    if(target.name === 'body') setBody(target.value);
+    switch(target.name) {
+      case 'url':
+        return dispatch({ type: 'SET_URL', payload: target.value });
+      case 'method':
+        return dispatch({ type: 'SET_METHOD', payload: target.value });
+      case 'body':
+        return dispatch({ type: 'SET_BODY', payload: target.value });
+    }
   };
 
   const handleSubmit = () => {

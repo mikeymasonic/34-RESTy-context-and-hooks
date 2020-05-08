@@ -94,15 +94,19 @@ const FormControl = () => {
         if(!response.headers && !response.response || (!response.ok)) {
           // setResponse(response.response);
           // setHeaders(response.headers); 
-           
-          response(response.response);
-          headers(response.headers);  
+          dispatch({ type: 'SET_RESPONSE', payload:response.response });
+          dispatch({ type: 'SET_HEADERS', payload:response.headers });
+
+          // response(response.response);
+          // headers(response.headers);  
           throw Error ('Bad Request');
         } else {
           // setResponse(response.response);
-          // setHeaders(response.headers);  
-          response(response.response);
-          headers(response.headers);    
+          // setHeaders(response.headers);
+          dispatch({ type: 'SET_RESPONSE', payload:response.response });
+          dispatch({ type: 'SET_HEADERS', payload:response.headers });  
+          // response(response.response);
+          // headers(response.headers);    
           handleSave(saveObject);
         }
       });
@@ -117,7 +121,10 @@ const FormControl = () => {
     if(!alreadyExists) {
       const newRequests = [...requests, saveObject];
       // setRequests(newRequests);
-      requests(newRequests);
+      
+      // requests(newRequests);
+      dispatch({ type: 'SET_REQUESTS', payload:newRequests });
+
       localStorage.setItem('requests', JSON.stringify(newRequests));
     }
     alreadyExists = false;
@@ -126,16 +133,20 @@ const FormControl = () => {
   const handleClear = () => {
     localStorage.clear();
     // setRequests([]);
-    requests([]);
+    dispatch({ type: 'SET_REQUESTS', payload:[] });
+    // requests([]);
   };
 
   const handleLoad = (url, method, body) => {
     // setUrl(url);
     // setMethod(method);
     // setBody(body);
-    url(url);
-    method(method);
-    body(body);
+    dispatch({ type: 'SET_URL', payload:url });
+    dispatch({ type: 'SET_METHOD', payload:method });
+    dispatch({ type: 'SET_BODY', payload:body });
+    // url(url);
+    // method(method);
+    // body(body);
   };
 
   return (
@@ -144,8 +155,8 @@ const FormControl = () => {
         <List handleClear={handleClear} handleLoad={handleLoad}/>
       </div>
       <div className={styles.right}>
-        <Form url={url} method={method} body={body} onChange={handleChange} onSubmit={handleSubmit}/>
-        <Display headers={headers} response={response} />
+        <Form onChange={handleChange} onSubmit={handleSubmit}/>
+        <Display />
       </div>
     </div>
   );

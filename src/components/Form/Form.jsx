@@ -1,9 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Form.css';
-import { useDisable } from '../../hooks/StateProvider';
+import { useDisable, useURL, useMethod, useBody } from '../../hooks/StateProvider';
 
-const Form = ({ url, method, body, onChange, onSubmit }) => {
+const Form = ({ onChange, onSubmit }) => {
+  const url = useURL();
+  const method = useMethod();
+  const body = useBody();
   const disable = useDisable();
 
 

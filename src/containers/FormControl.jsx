@@ -28,13 +28,14 @@ const FormControl = () => {
 
   useEffect(() => {
     const storedReqs = JSON.parse(localStorage.getItem('requests'));
-    if(storedReqs) requests(storedReqs);
+    if(storedReqs) dispatch({ type: 'SET_REQUESTS', payload:storedReqs }); 
+    // requests(storedReqs);
 
     if(method === 'GET' || method === 'DELETE') {
-      dispatch({ type: 'SET_DISABLE', payload:true });
+      dispatch({ type: 'SET_DISABLE', payload: true });
       // disable(true);
     } else if(method === 'POST' || method === 'PUT' || method === 'PATCH') {
-      dispatch({ type: 'SET_DISABLE', payload:false });
+      dispatch({ type: 'SET_DISABLE', payload: false });
       // disable(false);
     }
   }, [method]);

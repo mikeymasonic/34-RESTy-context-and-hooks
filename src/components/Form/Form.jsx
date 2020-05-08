@@ -9,7 +9,6 @@ const Form = ({ onChange, onSubmit }) => {
   const body = useBody();
   const disable = useDisable();
 
-
   return (
     <div className={styles.Form}>
       <form onSubmit={onSubmit}>

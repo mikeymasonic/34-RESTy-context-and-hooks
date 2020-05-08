@@ -1,14 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`List component renders List 1`] = `
-<div
-  className="List"
+<ContextProvider
+  value={
+    Object {
+      "dispatch": [Function],
+      "state": Object {
+        "body": "",
+        "disable": true,
+        "headers": Object {},
+        "method": "GET",
+        "requests": Array [],
+        "response": Object {},
+        "url": "",
+      },
+    }
+  }
 >
-  <ul />
-  <button
-    onClick={[Function]}
-  >
-    Clear
-  </button>
-</div>
+  <List />
+</ContextProvider>
 `;

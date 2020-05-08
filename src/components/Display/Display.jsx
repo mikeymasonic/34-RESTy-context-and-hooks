@@ -7,9 +7,6 @@ import { useResponse, useHeaders } from '../../hooks/StateProvider';
 const Display = () => {
   const response = useResponse();
   const headers = useHeaders();
-  // const responseList = Object.keys(response).map(keyValue => {
-  //   return <li key={keyValue}>{keyValue}: {response[keyValue]}</li>;
-  // });
 
   return (
     <div className={styles.Display}>

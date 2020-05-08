@@ -5,9 +5,7 @@ import { useRequests } from '../../hooks/StateProvider';
 
 const List = ({ handleClear, handleLoad }) => {
   const requests = useRequests();
-  // console.log(requests);
   const requestNodes = requests.map(request => {
-    // console.log(request);
     const home = request.url.split('/')[2];
     const user = request.url.split('.com')[1];
     return <li key={`${request.url}${request.method}`} onClick={() => handleLoad(request.url, request.method, request.body)}>

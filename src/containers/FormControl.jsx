@@ -1,36 +1,38 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Form from '../components/Form/Form';
 import Display from '../components/Display/Display';
 import List from '../components/List/List';
 import { fetchResponse } from '../services/api';
 import styles from './FormControl.css';
+import { useURL, useBody, useMethod, useDispatch, useRequests } from '../hooks/StateProvider';
 
 const FormControl = () => {
-  const [url, setUrl] = useState('');
-  const [method, setMethod] = useState('GET');
-  const [body, setBody] = useState('');
-
-  const [disable, setDisable] = useState(true);
-
-  const [headers, setHeaders] = useState({});
-  const [response, setResponse] = useState({});
-  const [requests, setRequests] = useState([]);
+  const url = useURL();
+  const body = useBody();
+  const method = useMethod();
+  const dispatch = useDispatch();
+  const requests = useRequests();
 
   useEffect(() => {
     const storedReqs = JSON.parse(localStorage.getItem('requests'));
-    if(storedReqs) setRequests(storedReqs);
+    if(storedReqs) dispatch({ type: 'SET_REQUESTS', payload:storedReqs }); 
 
     if(method === 'GET' || method === 'DELETE') {
-      setDisable(true);
+      dispatch({ type: 'SET_DISABLE', payload: true });
     } else if(method === 'POST' || method === 'PUT' || method === 'PATCH') {
-      setDisable(false);
+      dispatch({ type: 'SET_DISABLE', payload: false });
     }
   }, [method]);
 
   const handleChange = ({ target }) => {
-    if(target.name === 'url') setUrl(target.value);
-    if(target.name === 'method') setMethod(target.value);
-    if(target.name === 'body') setBody(target.value);
+    switch(target.name) {
+      case 'url':
+        return dispatch({ type: 'SET_URL', payload: target.value });
+      case 'method':
+        return dispatch({ type: 'SET_METHOD', payload: target.value });
+      case 'body':
+        return dispatch({ type: 'SET_BODY', payload: target.value });
+    }
   };
 
   const handleSubmit = () => {
@@ -40,7 +42,7 @@ const FormControl = () => {
     let saveObject;
 
     if(method === 'GET' || method === 'DELETE') {
-      setBody('');
+      dispatch({ type: 'SET_BODY', payload:'' });
       requestObject = { 
         method: method 
       };
@@ -67,12 +69,12 @@ const FormControl = () => {
     fetchResponse(url, requestObject)
       .then(response => { 
         if(!response.headers && !response.response || (!response.ok)) {
-          setResponse(response.response);
-          setHeaders(response.headers);  
+          dispatch({ type: 'SET_RESPONSE', payload:response.response });
+          dispatch({ type: 'SET_HEADERS', payload:response.headers });
           throw Error ('Bad Request');
         } else {
-          setResponse(response.response);
-          setHeaders(response.headers);    
+          dispatch({ type: 'SET_RESPONSE', payload:response.response });
+          dispatch({ type: 'SET_HEADERS', payload:response.headers });    
           handleSave(saveObject);
         }
       });
@@ -86,7 +88,7 @@ const FormControl = () => {
 
     if(!alreadyExists) {
       const newRequests = [...requests, saveObject];
-      setRequests(newRequests);
+      dispatch({ type: 'SET_REQUESTS', payload:newRequests });
       localStorage.setItem('requests', JSON.stringify(newRequests));
     }
     alreadyExists = false;
@@ -94,23 +96,23 @@ const FormControl = () => {
 
   const handleClear = () => {
     localStorage.clear();
-    setRequests([]);
+    dispatch({ type: 'SET_REQUESTS', payload:[] });
   };
 
   const handleLoad = (url, method, body) => {
-    setUrl(url);
-    setMethod(method);
-    setBody(body);
+    dispatch({ type: 'SET_URL', payload:url });
+    dispatch({ type: 'SET_METHOD', payload:method });
+    dispatch({ type: 'SET_BODY', payload:body });
   };
 
   return (
     <div className={styles.FormControl}>
       <div className={styles.left}>
-        <List requests={requests} handleClear={handleClear} handleLoad={handleLoad}/>
+        <List handleClear={handleClear} handleLoad={handleLoad}/>
       </div>
       <div className={styles.right}>
-        <Form url={url} method={method} body={body} disable={disable} onChange={handleChange} onSubmit={handleSubmit}/>
-        <Display headers={headers} response={response} />
+        <Form onChange={handleChange} onSubmit={handleSubmit}/>
+        <Display />
       </div>
     </div>
   );

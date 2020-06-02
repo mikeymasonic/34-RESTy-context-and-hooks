@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactJson from 'react-json-view';
 import styles from './Display.css';
+import { useResponse, useHeaders } from '../../hooks/StateProvider';
 
-const Display = ({ response, headers }) => {
-  // const responseList = Object.keys(response).map(keyValue => {
-  //   return <li key={keyValue}>{keyValue}: {response[keyValue]}</li>;
-  // });
+const Display = () => {
+  const response = useResponse();
+  const headers = useHeaders();
 
   return (
     <div className={styles.Display}>

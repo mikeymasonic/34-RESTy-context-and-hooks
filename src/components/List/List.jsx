@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './List.css';
+import { useRequests } from '../../hooks/StateProvider';
 
-const List = ({ requests, handleClear, handleLoad }) => {
+const List = ({ handleClear, handleLoad }) => {
+  const requests = useRequests();
   const requestNodes = requests.map(request => {
     const home = request.url.split('/')[2];
     const user = request.url.split('.com')[1];
